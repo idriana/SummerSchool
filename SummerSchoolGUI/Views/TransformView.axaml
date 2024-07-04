@@ -1,0 +1,118 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:SummerSchoolGUI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="200"
+             x:Class="SummerSchoolGUI.Views.TransformView"
+             x:DataType="vm:TransformViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+        to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:TransformViewModel />
+	</Design.DataContext>
+	<StackPanel>
+	<Grid RowDefinitions="*" ColumnDefinitions="32, 5*, *">
+		<!--header-->
+		<CheckBox Grid.Column="0"/>
+		<TextBlock Text="Transform Component" 
+				   Margin="0, 7, 0, 0" Grid.Column="1" 
+				   VerticalAlignment="Center" 
+				   HorizontalAlignment="Left"/>
+	</Grid>
+	<Grid RowDefinitions="*, *, *, *" ColumnDefinitions="4*, *, 4*, *, 4*" Margin="5">
+	<!--Position-->
+		<!--Position label-->
+		<Label Content="Position" 
+			   Grid.Row="1" Grid.Column="0" 
+			   VerticalAlignment="Center" 
+			   Grid.ColumnSpan="2"/>
+		<!--X position label-->
+		<Label Content="X" 
+			   Grid.Row="1"
+			   Grid.Column="1" 
+			   VerticalAlignment="Center" 
+			   HorizontalAlignment="Right" 
+			   Margin="5"/>
+		<!--X position textbox-->
+		<TextBox Text="{Binding PosX}" 
+				 Grid.Row="1" 
+				 Grid.Column="2" 
+				 VerticalAlignment="Center"/>
+		<!--Y position label-->
+		<Label Content="Y" 
+			   Grid.Row="1" 
+			   Grid.Column="3" 
+			   VerticalAlignment="Center" 
+			   HorizontalAlignment="Right" 
+			   Margin="5"/>
+		<!--Y position textbox-->
+		<TextBox Text="{Binding PosY}" 
+				 Grid.Row="1" 
+				 Grid.Column="4" 
+				 VerticalAlignment="Center"/>
+	<!--Rotation-->
+		<!--Rotation label-->
+		<Label Content="Rotation"
+			   Grid.Row="2"
+			   Grid.Column="0"
+			   VerticalAlignment="Center"
+			   Grid.ColumnSpan="2"/>
+		<!--X rotation label-->
+		<Label Content="X"
+			   Grid.Row="2"
+			   Grid.Column="1"
+			   VerticalAlignment="Center"
+			   HorizontalAlignment="Right"
+			   Margin="5"/>
+		<!--X rotation textbox-->
+		<TextBox Text="{Binding RotX}"
+				 Grid.Row="2"
+				 Grid.Column="2"
+				 VerticalAlignment="Center"/>
+		<!--Y rotation label-->
+		<Label Content="Y"
+			   Grid.Row="2"
+			   Grid.Column="3"
+			   VerticalAlignment="Center"
+			   HorizontalAlignment="Right"
+			   Margin="5"/>
+		<!--Y rotation textbox-->
+		<TextBox Text="{Binding RotY}"
+				 Grid.Row="2"
+				 Grid.Column="4"
+				 VerticalAlignment="Center"/>
+	<!--Scale-->
+		<!--Scale label-->
+		<Label Content="Scale"
+			   Grid.Row="3"
+			   Grid.Column="0"
+			   VerticalAlignment="Center"
+			   Grid.ColumnSpan="2"/>
+		<!--X scale label-->
+		<Label Content="X"
+			   Grid.Row="3"
+			   Grid.Column="1"
+			   VerticalAlignment="Center"
+			   HorizontalAlignment="Right"
+			   Margin="5"/>
+		<!--X scale textbox-->
+		<TextBox Text="{Binding ScaleX}"
+				 Grid.Row="3"
+				 Grid.Column="2"
+				 VerticalAlignment="Center"/>
+		<!--Y scale label-->
+		<Label Content="Y"
+			   Grid.Row="3"
+			   Grid.Column="3"
+			   VerticalAlignment="Center"
+			   HorizontalAlignment="Right"
+			   Margin="5"/>
+		<!--Y scale textbox-->
+		<TextBox Text="{Binding ScaleY}"
+				 Grid.Row="3"
+				 Grid.Column="4"
+				 VerticalAlignment="Center"/>
+	</Grid>
+	</StackPanel>
+</UserControl>

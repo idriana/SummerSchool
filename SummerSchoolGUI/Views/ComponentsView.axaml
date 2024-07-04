@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:SummerSchoolGUI.ViewModels"
+			 mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="450"
+             x:Class="SummerSchoolGUI.Views.ComponentsView"
+			 x:DataType="vm:ComponentsViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:ComponentsViewModel />
+	</Design.DataContext>
+	<Panel>
+		<StackPanel>
+			<TextBlock 
+				Text="{Binding Name}" 
+				HorizontalAlignment="Center" 
+				VerticalAlignment="Center"/>
+			<ScrollViewer VerticalAlignment="Stretch">
+				<ItemsControl 
+					ItemsSource="{Binding PropertyViews}" 
+					Width="330"/>
+			</ScrollViewer>
+		</StackPanel>
+	</Panel>
+</UserControl>
+

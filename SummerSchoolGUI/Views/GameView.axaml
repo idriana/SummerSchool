@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:SummerSchoolGUI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="SummerSchoolGUI.Views.GameView"
+             x:DataType="vm:GameViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:GameViewModel />
+	</Design.DataContext>
+	<Panel>
+		<ItemsControl ItemsSource="{Binding EntityPresentations}">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<Canvas Background="Transparent"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+
+			<ItemsControl.Styles>
+				<Style Selector="ItemsControl > ContentPresenter">
+					<Setter Property="Canvas.Left" Value="{Binding PosX}"/>
+					<Setter Property="Canvas.Top" Value="{Binding PosY}"/>
+				</Style>
+			</ItemsControl.Styles>
+
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<Ellipse Fill="Red" Width="{Binding ScaleX}" Height="{Binding ScaleY}"/>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+	</Panel>
+</UserControl>

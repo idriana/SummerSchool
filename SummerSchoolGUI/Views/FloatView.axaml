@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="50"
+             xmlns:vm="clr-namespace:SummerSchoolGUI.ViewModels"
+			 x:Class="SummerSchoolGUI.Views.FloatView"
+			 x:DataType="vm:FloatViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:FloatViewModel />
+	</Design.DataContext>
+	<Grid RowDefinitions="*" ColumnDefinitions="3*, 7*">
+		<TextBlock Text="{Binding Name}" Grid.Column="0"/>
+		<TextBox Text="{Binding StringValue}" Grid.Column="1"/>
+	</Grid>
+</UserControl>
