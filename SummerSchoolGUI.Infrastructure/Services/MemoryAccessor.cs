@@ -4,7 +4,6 @@ namespace SummerSchoolGUI.Infrastructure.Services
 {
     public class MemoryAccessor : IService
     {
-        private readonly object _memory_lock = new();
         private int current_entity = 0;
         private List<Entity> entities = new();
 
@@ -19,12 +18,9 @@ namespace SummerSchoolGUI.Infrastructure.Services
         public Entity Entity { get 
             {
                 Entity res = null;
-                lock (_memory_lock)
+                if (entities.Count != 0)
                 {
-                    if (entities.Count != 0)
-                    {
-                        res = entities[current_entity].Copy();
-                    }
+                    res = entities[current_entity].Copy();
                 }
                 return res;
             }}
@@ -32,11 +28,8 @@ namespace SummerSchoolGUI.Infrastructure.Services
         public List<Entity> Entities { get
             {
                 List<Entity> copy = new List<Entity>();
-                lock (_memory_lock)
-                {
-                    foreach (Entity entity in entities)
-                        copy.Add(entity.Copy());
-                }
+                foreach (Entity entity in entities)
+                    copy.Add(entity.Copy());
                 return copy;
             }
         }
@@ -46,10 +39,7 @@ namespace SummerSchoolGUI.Infrastructure.Services
 
         public void UpdateEntityCollection(List<Entity> newEntities)
         {
-            lock (_memory_lock)
-            {
-                this.entities = newEntities;
-            }
+            this.entities = newEntities;
             OnEntityCollectionUpdated();
         }
 
@@ -60,10 +50,7 @@ namespace SummerSchoolGUI.Infrastructure.Services
 
         public void UpdateSelectedEntity(Entity entity)
         {
-            lock (_memory_lock)
-            {
-                entities[current_entity] = entity;
-            }
+            entities[current_entity] = entity;
             OnSelectedEntityUpdated();
         }
 
@@ -75,25 +62,19 @@ namespace SummerSchoolGUI.Infrastructure.Services
 
         public void UpdateSelection(int entity_num)
         {
-            lock (_memory_lock)
-            {
-                current_entity = entity_num;
-            }
+            current_entity = entity_num;
             OnSelectedEntityUpdated();
         }
 
         public void UpdateSelectedEntityComponent(IComponent component)
         {
-            lock (_memory_lock)
+            Entity currEntity = entities[current_entity];
+            for (int i = 0; i < currEntity.components.Count; i++)
             {
-                Entity currEntity = entities[current_entity];
-                for (int i = 0; i < currEntity.components.Count; i++)
+                if (currEntity.components[i].GetType() == component.GetType())
                 {
-                    if (currEntity.components[i].GetType() == component.GetType())
-                    {
-                        currEntity.components[i] = component;
-                        break;
-                    }
+                    currEntity.components[i] = component;
+                    break;
                 }
             }
             OnSelectedEntityUpdated();

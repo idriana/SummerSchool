@@ -70,7 +70,7 @@ public class ComponentsViewModel : ViewModelBase
     /// <summary>
     /// Creates ViewModels for displayed components.
     /// </summary>
-    public void CreateModels(IServiceProvider serviceProvider)
+    private void CreateModels(IServiceProvider serviceProvider)
     {
         viewModels = new();
         for (int i = 0; i < components.Count; i++)
@@ -89,7 +89,7 @@ public class ComponentsViewModel : ViewModelBase
     /// <summary>
     /// Creates Views for displayed components.
     /// </summary>
-    public void CreateViews(IServiceProvider serviceProvider)
+    private void CreateViews(IServiceProvider serviceProvider)
     {
         PropertyViews = new();
         for (int i = 0; i < viewModels.Count; i++)

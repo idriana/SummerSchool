@@ -6,7 +6,8 @@ using SummerSchoolGUI.ViewModels;
 using SummerSchoolGUI.Views;
 using SummerSchoolGUI.Infrastructure;
 using SummerSchoolGUI.Infrastructure.Services;
-using SummerSchoolGUI.API;
+using Avalonia.Threading;
+using System;
 
 namespace SummerSchoolGUI;
 
@@ -33,16 +34,28 @@ public partial class App : Application
                 DataContext = new MainViewModel(InitializeServices())
             };
         }
-
         base.OnFrameworkInitializationCompleted();
     }
 
-    private IServiceProvider InitializeServices()
+    private Infrastructure.IServiceProvider InitializeServices()
     {
-        IServiceProvider serviceProvider = new ServiceProvider();
+        Action<Action> syncDelegate = SyncThreads;
+        Infrastructure.IServiceProvider serviceProvider = new ServiceProvider();
         serviceProvider.RegisterService(new MemoryAccessor());
-        serviceProvider.RegisterService(GUIAPI.GetService<GUIObserver>());
-        serviceProvider.RegisterService(GUIAPI.GetService<CoreObserver>());
+
+        CommandProvider commandProvider = new CommandProvider();
+        GUIObserver gUIObserver = new GUIObserver(commandProvider);
+        CoreObserver coreObserver = new CoreObserver(syncDelegate, commandProvider, new CommandHandler(serviceProvider));
+        
+        serviceProvider.RegisterService(gUIObserver);
+        GUIAPI.RegisterService(gUIObserver);
+        GUIAPI.RegisterService(coreObserver);
+        GUIAPI.Initialized = true;
         return serviceProvider;
+    }
+
+    private void SyncThreads(Action action)
+    {
+        Dispatcher.UIThread.Post(action);
     }
 }

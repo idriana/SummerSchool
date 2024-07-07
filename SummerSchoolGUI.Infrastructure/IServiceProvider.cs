@@ -9,8 +9,8 @@ namespace SummerSchoolGUI.Infrastructure
 {
     public interface IServiceProvider
     {
-        public abstract T GetService<T>();
+        public T GetService<T>();
 
-        public abstract void RegisterService(IService service);
+        public void RegisterService(IService service);
     }
 }

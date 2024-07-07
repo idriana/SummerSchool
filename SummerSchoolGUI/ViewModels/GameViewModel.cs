@@ -5,12 +5,13 @@ using SummerSchoolGUI.Infrastructure.Services;
 using System.Collections.ObjectModel;
 using System.Numerics;
 using Presentation;
-using Avalonia.Media;
 
 namespace SummerSchoolGUI.ViewModels
 {
     public class GameViewModel : ViewModelBase
     {
+        private IServiceProvider serviceProvider;
+
         public List<Entity> Entities { get; set; }
 
         public ObservableCollection<EntityPresentation> EntityPresentations { get; set; } = new();
@@ -34,16 +35,22 @@ namespace SummerSchoolGUI.ViewModels
         /// <param name="serviceProvider"> Provider for application services. </param>
         public GameViewModel(IServiceProvider serviceProvider)
         {
+            this.serviceProvider = serviceProvider;
             MemoryAccessor memory = serviceProvider.GetService<MemoryAccessor>();
             Entities = new List<Entity>(memory.Entities);
             memory.EntityCollectionUpdated += OnEntityCollectionUpdated;
             CreatePresentations();
         }
 
-        public void OnEntityCollectionUpdated(object sender, List<Entity> entities)
+        private void OnEntityCollectionUpdated(object sender, List<Entity> entities)
         {
             Entities = entities;
             CreatePresentations();
+            foreach (Entity e in entities)
+            {
+                e.Transform.posY += 1;
+            }
+            serviceProvider.GetService<GUIObserver>().AddData(entities);
         }
 
         private void CreatePresentations()

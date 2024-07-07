@@ -1,11 +1,12 @@
 ﻿using SummerSchoolGUI.Infrastructure.Services;
 
-namespace SummerSchoolGUI.API
+namespace SummerSchoolGUI.Infrastructure
 {
     public static class GUIAPI
     {
         private static List<IService> services = new List<IService>();
 
+        public static bool Initialized { get; set; } = false;
         public static T GetService<T>()
         {
             foreach (IService service in services)
@@ -19,7 +20,7 @@ namespace SummerSchoolGUI.API
             return default(T);
         }
 
-        private static void RegisterService(IService service)
+        public static void RegisterService(IService service)
         {
             services.Add(service);
         }

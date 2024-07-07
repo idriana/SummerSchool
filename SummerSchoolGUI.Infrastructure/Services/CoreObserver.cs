@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,21 @@ namespace SummerSchoolGUI.Infrastructure.Services
 {
     public class CoreObserver : IService
     {
-        public event EventHandler Changed;
+        private Action<Action> UIThreadCallback;
+        private CommandProvider CommandProvider;
+        private CommandHandler CommandHandler;
+
+        public CoreObserver(Action<Action> uIThreadCallback, CommandProvider commandProvider, CommandHandler commandHandler)
+        {
+            UIThreadCallback = uIThreadCallback;
+            CommandHandler = commandHandler;
+            CommandProvider = commandProvider;
+        }
+
+        public void AddData<T>(T data)
+        {
+            ICommand command = CommandProvider.CreateCommand(data);
+            UIThreadCallback.Invoke(() => CommandHandler.Execute(command));
+        }
     }
 }

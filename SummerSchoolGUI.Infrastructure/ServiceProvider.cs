@@ -9,7 +9,7 @@ namespace SummerSchoolGUI.Infrastructure
 {
     public class ServiceProvider : IServiceProvider
     {
-        public List<IService> services = new List<IService>();
+        private List<IService> services = new List<IService>();
 
         public T GetService<T>()
         {
