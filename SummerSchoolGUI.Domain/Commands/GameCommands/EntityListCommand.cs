@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Commands.GameCommands
 {
-    public record EntityListCommand : IGameCommand<List<Entity>>
+    public record EntityListCommand : IValueCommand<List<Entity>>
     {
         public List<Entity> Value { get; set; }
 
@@ -17,7 +17,7 @@ namespace Commands.GameCommands
         }
     }
 
-    public class EntityListCommandFactory : ICommandFactory<List<Entity>>
+    public class EntityListCommandFactory : IValueCommandFactory<EntityListCommand, List<Entity>>
     {
         public ICommand CreateCommand(List<Entity> data) 
         {

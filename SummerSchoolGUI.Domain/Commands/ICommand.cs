@@ -10,4 +10,14 @@ namespace Commands
     {
 
     }
+
+    public interface IEmptyCommand : ICommand
+    {
+
+    }
+
+    public interface IValueCommand<T>: ICommand
+    {
+        public T Value { get; set; }
+    }
 }

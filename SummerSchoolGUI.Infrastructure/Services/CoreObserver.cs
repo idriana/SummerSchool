@@ -20,9 +20,20 @@ namespace SummerSchoolGUI.Infrastructure.Services
             CommandProvider = commandProvider;
         }
 
-        public void AddData<T>(T data)
+        public void AddCommand<TCommand, TData>(TData data) where TCommand : IValueCommand<TData>
         {
-            ICommand command = CommandProvider.CreateCommand(data);
+            ICommand command = CommandProvider.CreateCommand<TCommand, TData>(data);
+            ExecuteCommand(command);
+        }
+
+        public void AddCommand<TCommand>() where TCommand : IEmptyCommand
+        {
+            ICommand command = CommandProvider.CreateCommand<TCommand>();
+            ExecuteCommand(command);
+        }
+
+        private void ExecuteCommand(ICommand command)
+        {
             UIThreadCallback.Invoke(() => CommandHandler.Execute(command));
         }
     }

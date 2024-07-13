@@ -1,6 +1,7 @@
 ﻿using SummerSchoolGUI.Views;
 using SummerSchoolGUI.Infrastructure;
 using SummerSchoolGUI.Infrastructure.Services;
+using Commands.UserActionsCommands;
 
 namespace SummerSchoolGUI.ViewModels;
 
@@ -46,5 +47,6 @@ public class MainViewModel : ViewModelBase
     public void OnWindowClosing()
     {
         GUIObserver observer = serviceProvider.GetService<GUIObserver>();
+        observer.AddCommand<CloseWindowCommand>();
     }
 }

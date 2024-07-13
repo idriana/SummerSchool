@@ -1,14 +1,16 @@
 ﻿using Commands;
 using Commands.GameCommands;
+using Commands.UserActionsCommands;
 using SummerSchoolGUI.Domain.ValueObjects;
 using SummerSchoolGUI.Infrastructure;
 using SummerSchoolGUI.Infrastructure.Services;
+using System.Diagnostics;
 
 namespace EntryPoint // Note: actual namespace depends on the project name.
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Console.WriteLine("Hello World!");
 
@@ -41,10 +43,11 @@ namespace EntryPoint // Note: actual namespace depends on the project name.
                     }
                 },
             };
-            observer.AddData(entities);
+            observer.AddCommand<EntityListCommand, List<Entity>>(entities);
 
             GUIObserver GUIObserver = GUIAPI.GetService<GUIObserver>();
-            while (true)
+            PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromMilliseconds(100));
+            while (await timer.WaitForNextTickAsync())
             {
                 ICommand command = GUIObserver.GetNextCommand();
                 if (command != null && command is EntityListCommand entityListCommand)
@@ -54,9 +57,36 @@ namespace EntryPoint // Note: actual namespace depends on the project name.
                     {
                         e.Transform.posY += 1;
                     }
-                    observer.AddData(entities);
+                    observer.AddCommand<EntityListCommand, List<Entity>>(entities);
+                }
+                else if (command != null && command is CloseWindowCommand)
+                {
+                    Environment.Exit(0);
                 }
             }
         }
+
+        //class MainLoop
+        //{
+        //    private Stopwatch stopwatch = new Stopwatch();
+        //    private GameTime gameTime;
+        //    private PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromMilliseconds(100));
+
+        //    public async void Run()
+        //    {
+        //        stopwatch.Start();
+        //        while (await timer.WaitForNextTickAsync())
+        //        {
+        //            Tick();
+        //        }
+        //    }
+
+        //    private void Tick()
+        //    {
+        //        gameTime.elapsedTotal += stopwatch.Elapsed;
+        //        // check for commands
+        //        // update ecs
+        //    }
+        //}
     }
 }

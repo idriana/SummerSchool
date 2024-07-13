@@ -5,6 +5,7 @@ using SummerSchoolGUI.Infrastructure.Services;
 using System.Collections.ObjectModel;
 using System.Numerics;
 using Presentation;
+using Commands.GameCommands;
 
 namespace SummerSchoolGUI.ViewModels
 {
@@ -50,7 +51,7 @@ namespace SummerSchoolGUI.ViewModels
             {
                 e.Transform.posY += 1;
             }
-            serviceProvider.GetService<GUIObserver>().AddData(entities);
+            serviceProvider.GetService<GUIObserver>().AddCommand<EntityListCommand, List<Entity>>(entities);
         }
 
         private void CreatePresentations()

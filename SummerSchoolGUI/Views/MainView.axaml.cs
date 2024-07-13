@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls;
 using SummerSchoolGUI.ViewModels;
+using System.ComponentModel;
 
 namespace SummerSchoolGUI.Views;
 

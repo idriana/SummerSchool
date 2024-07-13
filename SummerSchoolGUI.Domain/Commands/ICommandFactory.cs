@@ -10,8 +10,13 @@ namespace Commands
     {
     }
 
-    public interface ICommandFactory<T> : ICommandFactory
+    public interface IValueCommandFactory<TCommand, TData> : ICommandFactory where TCommand: IValueCommand<TData> 
     {
-        public ICommand CreateCommand(T data);
+        public ICommand CreateCommand(TData data);
+    }
+
+    public interface IEmptyCommandFactory<TCommand> : ICommandFactory where TCommand: IEmptyCommand
+    {
+        public ICommand CreateCommand();
     }
 }

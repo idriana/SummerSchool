@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Commands.UserActionsCommands
 {
-    public class CloseWindowCommand : ICommand
+    public class CloseWindowCommand : IEmptyCommand
     {
     }
 
-    public class CloseWindowCommandFactory
+    public class CloseWindowCommandFactory : IEmptyCommandFactory<CloseWindowCommand>
     {
-        public ICommand CreateCommand(int data)
+        public ICommand CreateCommand()
         {
             return new CloseWindowCommand();
         }
