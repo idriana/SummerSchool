@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ecs\MyEngine.Ecs.csproj" />
+    <ProjectReference Include="..\Gui\MyEngine.Gui.csproj" />
     <ProjectReference Include="..\SummerSchoolGUI.Desktop\SummerSchoolGUI.Desktop.csproj" />
     <ProjectReference Include="..\SummerSchoolGUI.Domain\SummerSchoolGUI.Domain.csproj" />
     <ProjectReference Include="..\SummerSchoolGUI.Infrastructure\SummerSchoolGUI.Infrastructure.csproj" />

@@ -5,6 +5,8 @@ using SummerSchoolGUI.Domain.ValueObjects;
 using SummerSchoolGUI.Infrastructure;
 using SummerSchoolGUI.Infrastructure.Services;
 using System.Diagnostics;
+using MyEngine.Gui;
+using MyEngine.Ecs;
 
 namespace MyEngine
 {
@@ -14,13 +16,8 @@ namespace MyEngine
         {
             Console.WriteLine("Hello World!");
 
-            Thread thread = new Thread(() => SummerSchoolGUI.Desktop.Program.Main(new string[] { }));
-            thread.Start();
-
-            while (!GUIAPI.Initialized)
-            {
-                // wait for services to load
-            }
+            MyGui gui = new MyGui();
+            MyEcs ecs = new MyEcs();
 
             CoreObserver observer = GUIAPI.GetService<CoreObserver>();
             List<Entity> entities = new List<Entity>()
@@ -49,7 +46,7 @@ namespace MyEngine
             PeriodicTimer timer = new PeriodicTimer(TimeSpan.FromMilliseconds(100));
             while (await timer.WaitForNextTickAsync())
             {
-                ICommand command = GUIObserver.GetNextCommand();
+                ICommand? command = GUIObserver.GetNextCommand();
                 if (command != null && command is EntityListCommand entityListCommand)
                 {
                     Thread.Sleep(100);

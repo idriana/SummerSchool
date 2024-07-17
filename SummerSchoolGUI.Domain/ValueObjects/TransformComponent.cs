@@ -1,11 +1,13 @@
-﻿namespace SummerSchoolGUI.Domain.ValueObjects
+﻿//using MyEngine.Ecs.Components;
+
+namespace SummerSchoolGUI.Domain.ValueObjects
 {
-    public record TransformComponent : IComponent
+    public class TransformComponent : IComponent
     {
-        public float posX;
-        public float posY;
-        public float rotX;
-        public float rotY;
+        public float posX = 100;
+        public float posY = 100;
+        public float rotX = 0;
+        public float rotY = 0;
         public float scaleX = 10;
         public float scaleY = 10;
 
@@ -21,5 +23,6 @@
                 scaleY = this.scaleY
             };
         }
+        //public void Update(Transform tc)
     }
 }

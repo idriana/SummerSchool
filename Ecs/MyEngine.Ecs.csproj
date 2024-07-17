@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LeoEcsLite\LeoEcsLite.csproj" />
+    <ProjectReference Include="..\SummerSchoolGUI.Infrastructure\SummerSchoolGUI.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
