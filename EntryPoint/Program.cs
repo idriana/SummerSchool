@@ -6,9 +6,9 @@ using SummerSchoolGUI.Infrastructure;
 using SummerSchoolGUI.Infrastructure.Services;
 using System.Diagnostics;
 
-namespace EntryPoint // Note: actual namespace depends on the project name.
+namespace MyEngine
 {
-    internal class Program
+    public class EntryPoint
     {
         static async Task Main(string[] args)
         {
