@@ -270,6 +270,16 @@ namespace Leopotam.EcsLite {
             return pool;
         }
 
+        public IEcsPool GetExitstingRawPool(Type componentType)
+        {
+            var poolType = componentType;
+            if (_poolHashes.TryGetValue(poolType, out var rawPool))
+            {
+                return rawPool;
+            }
+            throw new ArgumentException($"Couldn't find component pool for component of type {componentType}");
+        }
+
         [MethodImpl (MethodImplOptions.AggressiveInlining)]
         public IEcsPool GetPoolById (int typeId) {
             return typeId >= 0 && typeId < _poolsCount ? _pools[typeId] : null;

@@ -8,7 +8,10 @@ namespace SummerSchoolGUI.Domain.ValueObjects
 {
     public record Entity
     {
+        int id;
         public List<IComponent> components = new List<IComponent>();
+
+        public int ID { get { return id; } }
 
         public Entity Copy() 
         { 

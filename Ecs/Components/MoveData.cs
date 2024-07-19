@@ -2,11 +2,9 @@
 
 namespace MyEngine.Ecs.Components
 {
-    public struct MoveData
+    public struct MoveData : IECSComponent
     {
-        public double x;
-        public double y;
-        public double dx;
-        public double dy;
+        public float dx;
+        public float dy;
     }
 }

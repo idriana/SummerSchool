@@ -6,21 +6,25 @@ namespace MyEngine.Ecs.Systems
 {
     public class MovementSystem : IEcsInitSystem, IEcsRunSystem
     {
-        private EcsFilter _filter;
+        private EcsFilter _moveFilter;
         private EcsPool<MoveData> _movementPool;
+        private EcsPool<Transform> _transformPool;
+
         public void Init(IEcsSystems systems)
         {
             EcsWorld world = systems.GetWorld();
-            _filter = world.Filter<MoveData>().End();
+            _moveFilter = world.Filter<MoveData>().End();
             _movementPool = world.GetPool<MoveData>();
+            _transformPool = world.GetPool<Transform>();
         }
         public void Run(IEcsSystems systems)
         {
-            foreach (var entity in _filter)
+            foreach (var entity in _moveFilter)
             {
                 ref MoveData md = ref _movementPool.Get(entity);
-                md.x += md.dx; 
-                md.y += md.dy;
+                ref Transform transform = ref _transformPool.Get(entity);
+                transform.posX += md.dx; 
+                transform.posY += md.dy;
             }
         }
     }

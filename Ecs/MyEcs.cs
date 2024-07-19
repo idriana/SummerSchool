@@ -1,9 +1,8 @@
 ﻿using System;
+using System.Diagnostics.Tracing;
 using Leopotam.EcsLite;
+using MyEngine.Ecs.Components;
 using MyEngine.Ecs.Systems;
-using SummerSchoolGUI.Domain.ValueObjects;
-using SummerSchoolGUI.Infrastructure;
-using SummerSchoolGUI.Infrastructure.Services;
 
 namespace MyEngine.Ecs
 {
@@ -11,12 +10,13 @@ namespace MyEngine.Ecs
     {
         private EcsWorld _world;
         private IEcsSystems _systems;
-        private CoreObserver _observer;
-        private List<Entity> _ent;
+        private List<int> _ent;
+
+        public List<int> Entities { get { return _ent; } }
+
         public MyEcs()
         {
-            _observer = GUIAPI.GetService<CoreObserver>();
-            _ent = new List<Entity>();
+            _ent = new List<int>();
 
             _world = new EcsWorld();
             _systems = new EcsSystems(_world, _ent);
@@ -25,11 +25,6 @@ namespace MyEngine.Ecs
                 .Add(new MovementSystem())
                 .Add(new OutputSystem())
                 .Init();
-
-            // здесь у нас уже буду заданы сущности
-            _observer = GUIAPI.GetService<CoreObserver>();
-
-
         }
         public void Update()
         {
@@ -47,7 +42,25 @@ namespace MyEngine.Ecs
                 _world.Destroy();
                 _world = null;
             }
+        }
 
+        public void UpdateEntity(int Entity, IECSComponent component)
+        {
+            IEcsPool pool = _world.GetExitstingRawPool(component.GetType());
+            if (pool.Has(Entity))
+            {
+                IECSComponent ecsComponent = pool.GetRaw(Entity) as IECSComponent;
+                pool.SetRaw(Entity, component);
+            }
+            else
+            {
+                pool.AddRaw(Entity, component);
+            }
+        }
+
+        public void CreateEntity()
+        {
+            _ent.Add(_world.NewEntity());
         }
     }
 }

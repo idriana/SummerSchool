@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ecs\MyEngine.Ecs.csproj" />
     <ProjectReference Include="..\SummerSchoolGUI.Desktop\SummerSchoolGUI.Desktop.csproj" />
     <ProjectReference Include="..\SummerSchoolGUI.Infrastructure\SummerSchoolGUI.Infrastructure.csproj" />
   </ItemGroup>
