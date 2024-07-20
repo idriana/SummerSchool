@@ -6,5 +6,7 @@ namespace MyEngine.Gui.DataConverters
     public interface IConverter
     {
         public IECSComponent Convert(IComponent component);
+
+        public IComponent Convert(IECSComponent component);
     }
 }

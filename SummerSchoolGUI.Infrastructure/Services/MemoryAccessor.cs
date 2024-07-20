@@ -9,10 +9,6 @@ namespace SummerSchoolGUI.Infrastructure.Services
 
         public MemoryAccessor() 
         {
-            Entity entity = new Entity();
-            IComponent component = new TransformComponent() { posX = 100, posY = 100};
-            entity.components.Add(component);
-            entities.Add(entity);
         }
 
         public Entity Entity { get 
@@ -34,30 +30,60 @@ namespace SummerSchoolGUI.Infrastructure.Services
             }
         }
 
-        public event EventHandler<List<Entity>> EntityCollectionUpdated;
-        public event EventHandler<Entity> SelectedEntityUpdated;
-
-        public void UpdateEntityCollection(List<Entity> newEntities)
-        {
-            this.entities = newEntities;
-            OnEntityCollectionUpdated();
-        }
+        public event EventHandler PresentationChanged; // GameViewModel
+        public event EventHandler<List<Entity>> EntityCollectionUpdated; // currently not used
+        public event EventHandler<Entity> SelectedEntityUpdated; // ComponentsViewModel
+        public event EventHandler<IComponent> SelectedEntityComponentUpdated; // any component ViewModel
 
         private void OnEntityCollectionUpdated()
         {
-            EntityCollectionUpdated(this, this.entities);
-        }
-
-        public void UpdateSelectedEntity(Entity entity)
-        {
-            entities[current_entity] = entity;
-            OnSelectedEntityUpdated();
+            //EntityCollectionUpdated(this, this.entities);
         }
 
         private void OnSelectedEntityUpdated()
         {
             SelectedEntityUpdated(this, this.entities[current_entity]);
+        }
+
+        private void OnComponentUpdated(IComponent component)
+        {
+            SelectedEntityComponentUpdated(this, component);
+        }
+
+        public void UpdateEntityCollection(List<Entity> newEntities)
+        {
+            // check if selected object changed
+            if (newEntities.Count < current_entity)
+                current_entity = 0;
+            if (newEntities.Count != 0 && (entities.Count == 0 || entities[current_entity] != newEntities[current_entity]))
+                UpdateSelectedEntity(newEntities[current_entity]);
+
+            // update entities list
+            this.entities = newEntities;
             OnEntityCollectionUpdated();
+        }
+
+        public void UpdateSelectedEntity(Entity entity)
+        {
+            if (entities.Count == 0)
+            {
+                entities.Add(entity);
+                current_entity = 0;
+                OnEntityCollectionUpdated();
+                OnSelectedEntityUpdated();
+            }
+            else if (entities[current_entity].HasSameComponents(entity))
+            {
+                foreach (IComponent component in entity.components)
+                {
+                    UpdateSelectedEntityComponent(component);
+                }
+            }
+            else
+            {
+                entities[current_entity] = entity;
+                OnSelectedEntityUpdated();
+            }
         }
 
         public void UpdateSelection(int entity_num)
@@ -73,11 +99,20 @@ namespace SummerSchoolGUI.Infrastructure.Services
             {
                 if (currEntity.components[i].GetType() == component.GetType())
                 {
-                    currEntity.components[i] = component;
-                    break;
+                    if (!currEntity.components[i].HasSameValues(component))
+                    {
+                        currEntity.components[i] = component;
+                        OnComponentUpdated(component);
+                    }
+                    return;
                 }
             }
-            OnSelectedEntityUpdated();
+            throw new ArgumentException($"Can't update entity component of type {component.GetType()}. Entity does not have this component!");
+        }
+
+        public void UpdatePresentations()
+        {
+            PresentationChanged(this, EventArgs.Empty);
         }
     }
 }

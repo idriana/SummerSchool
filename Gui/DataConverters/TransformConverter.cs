@@ -1,10 +1,5 @@
 ﻿using MyEngine.Ecs.Components;
 using SummerSchoolGUI.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyEngine.Gui.DataConverters
 {
@@ -27,6 +22,26 @@ namespace MyEngine.Gui.DataConverters
             else
             {
                 throw new ArgumentException($"Expected to get gui component of type TransformComponent, got {guiComponent.GetType()}");
+            }
+        }
+
+        public IComponent Convert(IECSComponent coreComponent)
+        {
+            if (coreComponent is Transform coreTransform)
+            {
+                return new TransformComponent
+                {
+                    posX = coreTransform.posX,
+                    posY = coreTransform.posY,
+                    rotX = coreTransform.rotX,
+                    rotY = coreTransform.rotY,
+                    scaleX = coreTransform.scaleX,
+                    scaleY = coreTransform.scaleY
+                };
+            }
+            else
+            {
+                throw new ArgumentException($"Expected to get gui component of type TransformComponent, got {coreComponent.GetType()}");
             }
         }
     }

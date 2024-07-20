@@ -6,13 +6,12 @@ using System.Collections.ObjectModel;
 using System.Numerics;
 using Presentation;
 using Commands.GameCommands;
+using System;
 
 namespace SummerSchoolGUI.ViewModels
 {
     public class GameViewModel : ViewModelBase
     {
-        private IServiceProvider serviceProvider;
-
         public List<Entity> Entities { get; set; }
 
         public ObservableCollection<EntityPresentation> EntityPresentations { get; set; } = new();
@@ -20,11 +19,11 @@ namespace SummerSchoolGUI.ViewModels
         /// <summary>
         /// Designer only constructor
         /// </summary>
-        public GameViewModel() 
+        public GameViewModel() : base()
         {
             Entities = new ();
-            Entities.Add(new Entity());
-            Entities.Add(new Entity());
+            Entities.Add(new Entity(0));
+            Entities.Add(new Entity(1));
             Entities[0].components.Add(new TransformComponent() { posX = 100, posY = 100});
             Entities[1].components.Add(new TransformComponent() { posX = 200, posY = 200});
             CreatePresentations();
@@ -34,24 +33,18 @@ namespace SummerSchoolGUI.ViewModels
         /// Default constructor
         /// </summary>
         /// <param name="serviceProvider"> Provider for application services. </param>
-        public GameViewModel(IServiceProvider serviceProvider)
+        public GameViewModel(Infrastructure.IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            this.serviceProvider = serviceProvider;
             MemoryAccessor memory = serviceProvider.GetService<MemoryAccessor>();
             Entities = new List<Entity>(memory.Entities);
-            memory.EntityCollectionUpdated += OnEntityCollectionUpdated;
+            memory.PresentationChanged += OnEntityCollectionUpdated;
             CreatePresentations();
         }
 
-        private void OnEntityCollectionUpdated(object sender, List<Entity> entities)
+        private void OnEntityCollectionUpdated(object sender, EventArgs args)
         {
-            Entities = entities;
+            Entities = serviceProvider.GetService<MemoryAccessor>().Entities;
             CreatePresentations();
-            foreach (Entity e in entities)
-            {
-                e.Transform.posY += 1;
-            }
-            serviceProvider.GetService<GUIObserver>().AddCommand<EntityListCommand, List<Entity>>(entities);
         }
 
         private void CreatePresentations()

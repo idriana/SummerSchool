@@ -8,7 +8,6 @@ namespace SummerSchoolGUI.Views
         public ComponentsView()
         {
             InitializeComponent();
-            DataContext = new ComponentsViewModel();
         }
     }
 }

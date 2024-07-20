@@ -12,7 +12,25 @@ namespace MyEngine.Ecs
         private IEcsSystems _systems;
         private List<int> _ent;
 
-        public List<int> Entities { get { return _ent; } }
+        public int[] Entities
+        {
+            get
+            {
+                int[] entities = new int[_world.GetEntitiesCount()];
+                _world.GetAllEntities(ref entities);
+                return entities;
+            }
+        }
+
+        public IEcsPool[] Pools
+        {
+            get
+            {
+                IEcsPool[] pools = new IEcsPool[_world.GetPoolsCount()];
+                _world.GetAllPools(ref pools);
+                return pools;
+            }
+        }
 
         public MyEcs()
         {

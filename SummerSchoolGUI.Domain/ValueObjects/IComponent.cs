@@ -8,6 +8,8 @@ namespace SummerSchoolGUI.Domain.ValueObjects
 {
     public interface IComponent
     {
-        public abstract IComponent Copy();
+        public IComponent Copy();
+
+        public bool HasSameValues(IComponent other);
     }
 }

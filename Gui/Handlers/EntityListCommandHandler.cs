@@ -34,7 +34,7 @@ namespace MyEngine.Gui.Handlers
                 {
                     foreach (IComponent guiComponent in entity.components)
                     {
-                        IECSComponent ecsComponent = _converter.Convert(guiComponent);
+                        IECSComponent ecsComponent = _converter.ConvertToCore(guiComponent);
                         _ecs.UpdateEntity(entity.ID, ecsComponent);
                     }
                 }

@@ -24,5 +24,16 @@ namespace SummerSchoolGUI.Domain.ValueObjects
             };
         }
         //public void Update(Transform tc)
+
+        public bool HasSameValues(IComponent other)
+        {
+            if (other is TransformComponent component)
+            {
+                return posX == component.posX && posY == component.posY && 
+                       rotX == component.rotX && rotY == component.rotY && 
+                       scaleX == component.scaleX && scaleY == component.scaleY;
+            }
+            return false;
+        }
     }
 }

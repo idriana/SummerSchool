@@ -1,31 +1,41 @@
 ﻿using MyEngine.Ecs.Components;
 using SummerSchoolGUI.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyEngine.Gui.DataConverters
 {
     public class Converter
     {
 
-        private Dictionary<Type, IConverter> converters = new Dictionary<Type, IConverter>();
+        private Dictionary<Type, IConverter> guiCoreConverters = new Dictionary<Type, IConverter>();
+        private Dictionary<Type, IConverter> coreGuiConverters = new Dictionary<Type, IConverter>();
 
         public Converter() 
         {
-            converters[typeof(TransformComponent)] = new TransformConverter();
+            guiCoreConverters[typeof(TransformComponent)] = new TransformConverter();
+            coreGuiConverters[typeof(Transform)] = guiCoreConverters[typeof(TransformComponent)];
+
+            guiCoreConverters[typeof(MoveComponent)] = new MoveConverter();
+            coreGuiConverters[typeof(MoveData)] = guiCoreConverters[typeof(MoveComponent)];
         }
 
-        public IECSComponent Convert(IComponent guiComponent)
+        public IECSComponent ConvertToCore(IComponent guiComponent)
         {
-            IConverter converter = converters[guiComponent.GetType()];
+            IConverter converter = guiCoreConverters[guiComponent.GetType()];
             if (converter == null)
             {
                 throw new ArgumentException($"Couldn't find appropriate converter for gui component of type {guiComponent.GetType()}");
             }
             return converter.Convert(guiComponent);
+        }
+
+        public IComponent ConvertToGui(IECSComponent coreComponent)
+        {
+            IConverter converter = coreGuiConverters[coreComponent.GetType()];
+            if (converter == null)
+            {
+                throw new ArgumentException($"Couldn't find appropriate converter for gui component of type {coreComponent.GetType()}");
+            }
+            return converter.Convert(coreComponent);
         }
     }
 }

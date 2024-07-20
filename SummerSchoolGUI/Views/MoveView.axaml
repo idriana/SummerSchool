@@ -1,0 +1,56 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:SummerSchoolGUI.ViewModels.Components"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="200"
+             x:Class="SummerSchoolGUI.Views.MoveView"
+             x:DataType="vm:MoveViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+        to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MoveViewModel />
+	</Design.DataContext>
+	<StackPanel>
+		<Grid RowDefinitions="*" ColumnDefinitions="32, 5*, *">
+			<!--header-->
+			<CheckBox Grid.Column="0"/>
+			<TextBlock Text="{Binding Name}"
+					   Margin="0, 7, 0, 0" Grid.Column="1"
+					   VerticalAlignment="Center"
+					   HorizontalAlignment="Left"/>
+		</Grid>
+		<Grid RowDefinitions="*" ColumnDefinitions="4*, *, 4*, *, 4*" Margin="5">
+			<!--Movement vector-->
+			<!--Vector label-->
+			<Label Content="Vector"
+				   Grid.Row="1" Grid.Column="0"
+				   VerticalAlignment="Center"
+				   Grid.ColumnSpan="2"/>
+			<!--X vector label-->
+			<Label Content="X"
+				   Grid.Row="1"
+				   Grid.Column="1"
+				   VerticalAlignment="Center"
+				   HorizontalAlignment="Right"
+				   Margin="5"/>
+			<!--X vector textbox-->
+			<TextBox Text="{Binding Dx}"
+					 Grid.Row="1"
+					 Grid.Column="2"
+					 VerticalAlignment="Center"/>
+			<!--Y vector label-->
+			<Label Content="Y"
+				   Grid.Row="1"
+				   Grid.Column="3"
+				   VerticalAlignment="Center"
+				   HorizontalAlignment="Right"
+				   Margin="5"/>
+			<!--Y vector textbox-->
+			<TextBox Text="{Binding Dy}"
+					 Grid.Row="1"
+					 Grid.Column="4"
+					 VerticalAlignment="Center"/>
+		</Grid>
+	</StackPanel>
+</UserControl>

@@ -7,8 +7,6 @@ namespace SummerSchoolGUI.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
-    private IServiceProvider serviceProvider;
-
     /// <summary>
     /// Debug string
     /// </summary>
@@ -27,7 +25,7 @@ public class MainViewModel : ViewModelBase
     /// <summary>
     /// Design only constructor
     /// </summary>
-    public MainViewModel()
+    public MainViewModel() : base()
     {
         GameView = new GameView() { DataContext = new GameViewModel() };
         ComponentsView = new ComponentsView() {  DataContext = new ComponentsViewModel() };
@@ -37,9 +35,8 @@ public class MainViewModel : ViewModelBase
     /// Default constructor
     /// </summary>
     /// <param name="serviceProvider"> Provider for application services </param>
-    public MainViewModel(IServiceProvider serviceProvider)
+    public MainViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
     {
-        this.serviceProvider = serviceProvider;
         GameView = new GameView() { DataContext = new GameViewModel(serviceProvider) };
         ComponentsView = new ComponentsView() { DataContext = new ComponentsViewModel(serviceProvider) };
     }

@@ -24,6 +24,7 @@ namespace SummerSchoolGUI.Infrastructure
             {
                 serviceProvider.GetService<MemoryAccessor>().UpdateEntityCollection(entityListCommand.Value);
             }
+            serviceProvider.GetService<MemoryAccessor>().UpdatePresentations();
         }
     }
 }

@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:vm="clr-namespace:SummerSchoolGUI.ViewModels"
+			 xmlns:vm="clr-namespace:SummerSchoolGUI.ViewModels.Components"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="200"
              x:Class="SummerSchoolGUI.Views.TransformView"
              x:DataType="vm:TransformViewModel">
@@ -15,7 +15,7 @@
 	<Grid RowDefinitions="*" ColumnDefinitions="32, 5*, *">
 		<!--header-->
 		<CheckBox Grid.Column="0"/>
-		<TextBlock Text="Transform Component" 
+		<TextBlock Text="{Binding Name}" 
 				   Margin="0, 7, 0, 0" Grid.Column="1" 
 				   VerticalAlignment="Center" 
 				   HorizontalAlignment="Left"/>

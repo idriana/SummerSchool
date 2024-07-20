@@ -1,11 +1,10 @@
 using Avalonia.Controls;
-using SummerSchoolGUI.ViewModels;
 
 namespace SummerSchoolGUI.Views
 {
-    public partial class FloatView : UserControl
+    public partial class MoveView : UserControl
     {
-        public FloatView()
+        public MoveView()
         {
             InitializeComponent();
         }

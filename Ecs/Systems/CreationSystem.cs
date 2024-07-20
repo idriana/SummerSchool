@@ -10,12 +10,23 @@ namespace MyEngine.Ecs.Systems
         public void Init(IEcsSystems systems)
         {
             _ent = systems.GetShared<List<int>>();
+
             EcsWorld world = systems.GetWorld();
-            EcsPool<Transform> tcpool = world.GetPool<Transform>();
             int e1 = world.NewEntity();
-            tcpool.Add(e1);
+
+            world.GetPool<Transform>().Add(e1);
+            world.GetPool<MoveData>().Add(e1);
+            
             _ent.Add(e1);
-            ref Transform tc = ref tcpool.Get(e1);
+
+            ref Transform transform = ref world.GetPool<Transform>().Get(e1);
+            transform.posX = 100;
+            transform.posY = 100;
+            transform.scaleX = 10;
+            transform.scaleY = 10;
+            
+            ref MoveData moveData = ref world.GetPool<MoveData>().Get(e1);
+            moveData.dy = 1;
         }
     }
 }

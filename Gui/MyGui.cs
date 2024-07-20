@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 using Commands;
 using Commands.GameCommands;
 using Commands.UserActionsCommands;
+using Leopotam.EcsLite;
 using MyEngine.Ecs;
+using MyEngine.Ecs.Components;
 using MyEngine.Gui.DataConverters;
 using MyEngine.Gui.Handlers;
+using SummerSchoolGUI.Domain.ValueObjects;
 using SummerSchoolGUI.Infrastructure;
 using SummerSchoolGUI.Infrastructure.Services;
 
@@ -44,6 +47,7 @@ namespace MyEngine.Gui
         public void Update()
         {
             getCommands();
+            sendCommands();
         }
 
         private void getCommands()
@@ -65,7 +69,37 @@ namespace MyEngine.Gui
         private void sendCommands()
         {
             var observer = GUIAPI.GetService<CoreObserver>();
+            observer.AddCommand<EntityListCommand, List<Entity>>(CollectEntitiesData());
             
+        }
+
+        private List<Entity> CollectEntitiesData()
+        {
+            var entities = new List<Entity>();
+            foreach (int entity in ecs.Entities)
+            {
+                List<IComponent> components = CollectComponentsData(entity);
+                entities.Add(new Entity(entity) {components=components});
+            }
+            return entities;
+        }
+
+        private List<IComponent> CollectComponentsData(int entity)
+        {
+            List<IComponent> components = new List<IComponent>();
+            foreach (IEcsPool pool in ecs.Pools)
+            {
+                if (pool.Has(entity))
+                {
+                    IECSComponent component = pool.GetRaw(entity) as IECSComponent;
+                    if (component == null)
+                    {
+                        throw new ArgumentNullException("Expected to get IECSComponent from component pool, got null");
+                    }
+                    components.Add(converter.ConvertToGui(component));
+                }
+            }
+            return components;
         }
     }
 }
