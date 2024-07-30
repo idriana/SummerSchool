@@ -56,5 +56,12 @@ namespace SummerSchoolGUI.ViewModels.Components
             SendUpdates();
             OnPropertyChanged(propertyName);
         }
+
+        protected void UpdateTemp()
+        {
+            MemoryAccessor memory = serviceProvider.GetService<MemoryAccessor>();
+            memory.UpdateSelectedEntityComponent(_component);
+            SendUpdates();
+        }
     }
 }

@@ -3,11 +3,13 @@ using ReactiveUI;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using SummerSchoolGUI.Domain.ValueObjects;
-using SummerSchoolGUI.Views;
+using SummerSchoolGUI.Views.Components;
 using System.Diagnostics;
 using SummerSchoolGUI.Infrastructure;
 using SummerSchoolGUI.Infrastructure.Services;
 using SummerSchoolGUI.ViewModels.Components;
+using SummerSchoolGUI.ViewModels.Primitives;
+using SummerSchoolGUI.Views.Primitives;
 
 namespace SummerSchoolGUI.ViewModels;
 

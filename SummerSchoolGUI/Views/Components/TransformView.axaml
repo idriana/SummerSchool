@@ -1,0 +1,27 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:SummerSchoolGUI.ViewModels.Components"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="200"
+             x:Class="SummerSchoolGUI.Views.Components.TransformView"
+             x:DataType="vm:TransformViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+        to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:TransformViewModel />
+	</Design.DataContext>
+	<StackPanel>
+	<Grid RowDefinitions="*" ColumnDefinitions="32, 5*, *">
+		<!--header-->
+		<CheckBox Grid.Column="0"/>
+		<TextBlock Text="{Binding Name}" 
+				   Margin="0, 7, 0, 0" Grid.Column="1" 
+				   VerticalAlignment="Center" 
+				   HorizontalAlignment="Left"/>
+	</Grid>
+		<ContentControl Content="{Binding Position}"/>
+		<ContentControl Content="{Binding Rotation}"/>
+		<ContentControl Content="{Binding Scale}"/>
+	</StackPanel>
+</UserControl>

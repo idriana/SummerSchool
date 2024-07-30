@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="100"
+             x:Class="SummerSchoolGUI.FloatView"
+			 xmlns:vm="clr-namespace:SummerSchoolGUI.ViewModels.Primitives"
+			 x:DataType="vm:FloatViewModel">
+	<Design.DataContext>
+		<vm:FloatViewModel />
+	</Design.DataContext>
+	<Grid RowDefinitions="*" ColumnDefinitions="auto, *" Margin="5">
+		<!--X position label-->
+		<Label Content="{Binding PropertyName}"
+			   Grid.Row="0"
+			   Grid.Column="0"
+			   VerticalAlignment="Center"
+			   HorizontalAlignment="Right"
+			   Margin="5"/>
+		<!--X position textbox-->
+		<TextBox Text="{Binding Value}"
+				 Grid.Row="0"
+				 Grid.Column="1"
+				 VerticalAlignment="Center"/>
+	</Grid>
+</UserControl>

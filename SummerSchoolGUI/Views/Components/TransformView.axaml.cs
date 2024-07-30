@@ -1,7 +1,6 @@
 using Avalonia.Controls;
-using SummerSchoolGUI.ViewModels;
 
-namespace SummerSchoolGUI.Views;
+namespace SummerSchoolGUI.Views.Components;
 
 public partial class TransformView : UserControl
 {

@@ -5,7 +5,8 @@
              xmlns:vm="clr-namespace:SummerSchoolGUI.ViewModels"
 			 mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="450"
              x:Class="SummerSchoolGUI.Views.ComponentsView"
-			 x:DataType="vm:ComponentsViewModel">
+			 x:DataType="vm:ComponentsViewModel"
+			 xmlns:primitives="clr-namespace:SummerSchoolGUI.Views.Primitives">
 	<Design.DataContext>
 		<!-- This only sets the DataContext for the previewer in an IDE,
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
@@ -13,13 +14,13 @@
 	</Design.DataContext>
 	<Panel>
 		<StackPanel>
-			<TextBlock 
-				Text="{Binding Name}" 
-				HorizontalAlignment="Center" 
+			<TextBlock
+				Text="{Binding Name}"
+				HorizontalAlignment="Center"
 				VerticalAlignment="Center"/>
 			<ScrollViewer VerticalAlignment="Stretch">
-				<ItemsControl 
-					ItemsSource="{Binding PropertyViews}" 
+				<ItemsControl
+					ItemsSource="{Binding PropertyViews}"
 					Width="330"/>
 			</ScrollViewer>
 		</StackPanel>

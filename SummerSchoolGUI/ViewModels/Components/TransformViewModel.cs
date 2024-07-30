@@ -1,6 +1,9 @@
-﻿using SummerSchoolGUI.Domain.ValueObjects;
+﻿using Avalonia.Controls;
+using SummerSchoolGUI.Domain.ValueObjects;
 using SummerSchoolGUI.Infrastructure;
 using SummerSchoolGUI.Infrastructure.Services;
+using SummerSchoolGUI.ViewModels.Primitives;
+using SummerSchoolGUI.Views.Primitives;
 using System.ComponentModel;
 
 namespace SummerSchoolGUI.ViewModels.Components;
@@ -11,103 +14,71 @@ public class TransformViewModel : ComponentViewModelBase
 
     private TransformComponent TransformComponent { get { return (TransformComponent)_component; } }
 
-    #region transform getters/setters
-    public string PosX
-    {
-        get { return TransformComponent.posX.ToString(); }
-        set
-        {
-            if (value == "")
-                TransformComponent.posX = 0;
-            else
-                TransformComponent.posX = float.Parse(value);
-            UpdateInternal(nameof(PosX));
-        }
-    }
-
-    public string PosY
-    {
-        get => TransformComponent.posY.ToString();
-        set
-        {
-            if (value == "")
-                TransformComponent.posY = 0;
-            else
-                TransformComponent.posY = float.Parse(value);
-            UpdateInternal(nameof(PosY));
-        }
-    }
-
-    public string RotX
-    {
-        get => TransformComponent.rotX.ToString();
-        set
-        {
-            if (value == "")
-                TransformComponent.rotX = 0;
-            else
-                TransformComponent.rotX = float.Parse(value);
-            UpdateInternal(nameof(RotX));
-        }
-    }
-
-    public string RotY
-    {
-        get => TransformComponent.rotY.ToString();
-        set
-        {
-            if (value == "")
-                TransformComponent.rotY = 0;
-            else
-                TransformComponent.rotY = float.Parse(value);
-            UpdateInternal(nameof(RotY));
-        }
-    }
-
-    public string ScaleX
-    {
-        get => TransformComponent.scaleX.ToString();
-        set
-        {
-            if (value == "")
-                TransformComponent.scaleX = 0;
-            else
-                TransformComponent.scaleX = float.Parse(value);
-            UpdateInternal(nameof(ScaleX));
-        }
-    }
-
-    public string ScaleY
-    {
-        get => TransformComponent.scaleY.ToString();
-        set
-        {
-            if (value == "")
-                TransformComponent.scaleY = 0;
-            else
-                TransformComponent.scaleY = float.Parse(value);
-            UpdateInternal(nameof(ScaleY));
-        }
-    }
-    #endregion
+    public UserControl Position { get; private set; }
+    public UserControl Rotation { get; private set; }
+    public UserControl Scale { get; private set; }
 
     protected override void UpdateValues(Domain.ValueObjects.IComponent component)
     {
-        _component = component;
-        OnPropertyChanged(nameof(PosX));
-        OnPropertyChanged(nameof(PosY));
-        OnPropertyChanged(nameof(RotX));
-        OnPropertyChanged(nameof(RotY));
-        OnPropertyChanged(nameof(ScaleX));
-        OnPropertyChanged(nameof(ScaleY));
+        if (component is TransformComponent transformComponent) {
+            Vector2ViewModel PositionVM = Position.DataContext as Vector2ViewModel;
+            PositionVM.SetX(transformComponent.posX);
+            PositionVM.SetY(transformComponent.posY);
+
+            Vector2ViewModel RotationVM = Rotation.DataContext as Vector2ViewModel;
+            RotationVM.SetX(transformComponent.rotX);
+            RotationVM.SetY(transformComponent.rotY);
+
+            Vector2ViewModel ScaleVM = Scale.DataContext as Vector2ViewModel;
+            ScaleVM.SetX(transformComponent.scaleX);
+            ScaleVM.SetY(transformComponent.scaleY);
+        }
     }
 
     public TransformViewModel() : base()
     {
         _component = new TransformComponent();
+        Position = new Vector2View() { DataContext = new Vector2ViewModel(), Name = "Position" };
+        Rotation = new Vector2View() { DataContext = new Vector2ViewModel(), Name = "Rotation" };
+        Scale = new Vector2View() { DataContext = new Vector2ViewModel(), Name = "Scale" };
     }
 
     public TransformViewModel(IServiceProvider serviceProvider, TransformComponent component) : base(serviceProvider, component)
     {
+        Vector2ViewModel PositionVM = new Vector2ViewModel("Position", serviceProvider);
+        Vector2ViewModel RotationVM = new Vector2ViewModel("Rotation", serviceProvider);
+        Vector2ViewModel ScaleVM = new Vector2ViewModel("Scale", serviceProvider);
+
+        Position = new Vector2View() { DataContext = PositionVM };
+        Rotation = new Vector2View() { DataContext = RotationVM };
+        Scale = new Vector2View() { DataContext = ScaleVM };
+
+        PositionVM.PropertyChanged += (sender, args) =>
+        {
+            TransformComponent.posX = PositionVM.GetX();
+            TransformComponent.posY = PositionVM.GetY();
+            UpdateTemp();
+        };
+
+        RotationVM.PropertyChanged += (sender, args) =>
+        {
+            TransformComponent.rotX = RotationVM.GetX();
+            TransformComponent.rotY = RotationVM.GetY();
+            UpdateTemp();
+        };
+
+        ScaleVM.PropertyChanged += (sender, args) =>
+        {
+            TransformComponent.scaleX = ScaleVM.GetX();
+            TransformComponent.scaleY = ScaleVM.GetY();
+            UpdateTemp();
+        };
+
+        PositionVM.SetX(component.posX);
+        PositionVM.SetY(component.posY);
+        RotationVM.SetX(component.rotX);
+        RotationVM.SetY(component.rotY);
+        ScaleVM.SetX(component.scaleX);
+        ScaleVM.SetY(component.scaleY);
     }
 }

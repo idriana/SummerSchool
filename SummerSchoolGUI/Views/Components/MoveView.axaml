@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="clr-namespace:SummerSchoolGUI.ViewModels.Components"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="200"
-             x:Class="SummerSchoolGUI.Views.MoveView"
+             x:Class="SummerSchoolGUI.Views.Components.MoveView"
              x:DataType="vm:MoveViewModel">
 	<Design.DataContext>
 		<!-- This only sets the DataContext for the previewer in an IDE,
@@ -20,37 +20,6 @@
 					   VerticalAlignment="Center"
 					   HorizontalAlignment="Left"/>
 		</Grid>
-		<Grid RowDefinitions="*" ColumnDefinitions="4*, *, 4*, *, 4*" Margin="5">
-			<!--Movement vector-->
-			<!--Vector label-->
-			<Label Content="Vector"
-				   Grid.Row="1" Grid.Column="0"
-				   VerticalAlignment="Center"
-				   Grid.ColumnSpan="2"/>
-			<!--X vector label-->
-			<Label Content="X"
-				   Grid.Row="1"
-				   Grid.Column="1"
-				   VerticalAlignment="Center"
-				   HorizontalAlignment="Right"
-				   Margin="5"/>
-			<!--X vector textbox-->
-			<TextBox Text="{Binding Dx}"
-					 Grid.Row="1"
-					 Grid.Column="2"
-					 VerticalAlignment="Center"/>
-			<!--Y vector label-->
-			<Label Content="Y"
-				   Grid.Row="1"
-				   Grid.Column="3"
-				   VerticalAlignment="Center"
-				   HorizontalAlignment="Right"
-				   Margin="5"/>
-			<!--Y vector textbox-->
-			<TextBox Text="{Binding Dy}"
-					 Grid.Row="1"
-					 Grid.Column="4"
-					 VerticalAlignment="Center"/>
-		</Grid>
+		<ContentControl Content="{Binding Vector}"/>
 	</StackPanel>
 </UserControl>

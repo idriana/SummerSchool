@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace SummerSchoolGUI.Views
+namespace SummerSchoolGUI.Views.Components
 {
     public partial class MoveView : UserControl
     {
