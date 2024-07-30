@@ -11,12 +11,9 @@ namespace MyEngine.Gui.DataConverters
             {
                 return new Transform
                 {
-                    posX = guiTransform.posX,
-                    posY = guiTransform.posY,
-                    rotX = guiTransform.rotX,
-                    rotY = guiTransform.rotY,
-                    scaleX = guiTransform.scaleX,
-                    scaleY = guiTransform.scaleY
+                    Position = guiTransform.Position,
+                    Rotation = guiTransform.Rotation,
+                    Scale = guiTransform.Scale,
                 };
             }
             else
@@ -31,12 +28,9 @@ namespace MyEngine.Gui.DataConverters
             {
                 return new TransformComponent
                 {
-                    posX = coreTransform.posX,
-                    posY = coreTransform.posY,
-                    rotX = coreTransform.rotX,
-                    rotY = coreTransform.rotY,
-                    scaleX = coreTransform.scaleX,
-                    scaleY = coreTransform.scaleY
+                    Position = coreTransform.Position,
+                    Rotation = coreTransform.Rotation,
+                    Scale = coreTransform.Scale,
                 };
             }
             else

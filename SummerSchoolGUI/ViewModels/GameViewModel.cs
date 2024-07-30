@@ -24,8 +24,8 @@ namespace SummerSchoolGUI.ViewModels
             Entities = new ();
             Entities.Add(new Entity(0));
             Entities.Add(new Entity(1));
-            Entities[0].components.Add(new TransformComponent() { posX = 100, posY = 100});
-            Entities[1].components.Add(new TransformComponent() { posX = 200, posY = 200});
+            Entities[0].components.Add(new TransformComponent() { Position = new Vector2(100, 100)});
+            Entities[1].components.Add(new TransformComponent() {Position = new Vector2(200, 200) });
             CreatePresentations();
         }
 
@@ -55,12 +55,12 @@ namespace SummerSchoolGUI.ViewModels
                 TransformComponent transform = entity.Transform;
                 EntityPresentations.Add(
                     new EntityPresentation(
-                    transform.posX,
-                    transform.posY,
-                    transform.rotX,
-                    transform.rotY,
-                    transform.scaleX,
-                    transform.scaleY)
+                    transform.Position.X,
+                    transform.Position.Y,
+                    transform.Rotation.X,
+                    transform.Rotation.Y,
+                    transform.Scale.X,
+                    transform.Scale.Y)
                 );
             }
         }

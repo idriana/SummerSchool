@@ -22,16 +22,13 @@ public class TransformViewModel : ComponentViewModelBase
     {
         if (component is TransformComponent transformComponent) {
             Vector2ViewModel PositionVM = Position.DataContext as Vector2ViewModel;
-            PositionVM.SetX(transformComponent.posX);
-            PositionVM.SetY(transformComponent.posY);
+            PositionVM.SetValue(transformComponent.Position);
 
             Vector2ViewModel RotationVM = Rotation.DataContext as Vector2ViewModel;
-            RotationVM.SetX(transformComponent.rotX);
-            RotationVM.SetY(transformComponent.rotY);
+            RotationVM.SetValue(transformComponent.Rotation);
 
             Vector2ViewModel ScaleVM = Scale.DataContext as Vector2ViewModel;
-            ScaleVM.SetX(transformComponent.scaleX);
-            ScaleVM.SetY(transformComponent.scaleY);
+            ScaleVM.SetValue(transformComponent.Scale);
         }
     }
 
@@ -55,30 +52,24 @@ public class TransformViewModel : ComponentViewModelBase
 
         PositionVM.PropertyChanged += (sender, args) =>
         {
-            TransformComponent.posX = PositionVM.GetX();
-            TransformComponent.posY = PositionVM.GetY();
+            TransformComponent.Position = PositionVM.GetValue();
             UpdateTemp();
         };
 
         RotationVM.PropertyChanged += (sender, args) =>
         {
-            TransformComponent.rotX = RotationVM.GetX();
-            TransformComponent.rotY = RotationVM.GetY();
+            TransformComponent.Rotation = RotationVM.GetValue();
             UpdateTemp();
         };
 
         ScaleVM.PropertyChanged += (sender, args) =>
         {
-            TransformComponent.scaleX = ScaleVM.GetX();
-            TransformComponent.scaleY = ScaleVM.GetY();
+            TransformComponent.Scale = ScaleVM.GetValue();
             UpdateTemp();
         };
 
-        PositionVM.SetX(component.posX);
-        PositionVM.SetY(component.posY);
-        RotationVM.SetX(component.rotX);
-        RotationVM.SetY(component.rotY);
-        ScaleVM.SetX(component.scaleX);
-        ScaleVM.SetY(component.scaleY);
+        PositionVM.SetValue(component.Position);
+        RotationVM.SetValue(component.Rotation);
+        ScaleVM.SetValue(component.Scale);
     }
 }

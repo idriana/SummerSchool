@@ -20,13 +20,11 @@ namespace MyEngine.Ecs.Systems
             _ent.Add(e1);
 
             ref Transform transform = ref world.GetPool<Transform>().Get(e1);
-            transform.posX = 100;
-            transform.posY = 100;
-            transform.scaleX = 10;
-            transform.scaleY = 10;
+            transform.Position = new System.Numerics.Vector2(100, 100);
+            transform.Scale = new System.Numerics.Vector2(10, 10);
             
             ref MoveData moveData = ref world.GetPool<MoveData>().Get(e1);
-            moveData.dy = 1;
+            moveData.Velocity.Y = 1;
         }
     }
 }

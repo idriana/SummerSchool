@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,15 +9,13 @@ namespace SummerSchoolGUI.Domain.ValueObjects
 {
     public record MoveComponent : IComponent
     {
-        public float dx;
-        public float dy;
+        public Vector2 Velocity;
 
         public IComponent Copy()
         {
             return new MoveComponent
             {
-                dx = this.dx,
-                dy = this.dy
+                Velocity = Velocity
             };
         }
 
@@ -24,11 +23,9 @@ namespace SummerSchoolGUI.Domain.ValueObjects
         {
             if (other is MoveComponent component)
             {
-                return dx == component.dx && dy == component.dy;
+                return Velocity == component.Velocity;
             }
             return false;
         }
-
-
     }
 }

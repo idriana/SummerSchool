@@ -23,8 +23,7 @@ namespace MyEngine.Ecs.Systems
             {
                 ref MoveData md = ref _movementPool.Get(entity);
                 ref Transform transform = ref _transformPool.Get(entity);
-                transform.posX += md.dx; 
-                transform.posY += md.dy;
+                transform.Position += md.Velocity; 
             }
         }
     }

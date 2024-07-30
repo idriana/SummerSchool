@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Numerics;
 
 namespace MyEngine.Ecs.Components
 {
     public struct MoveData : IECSComponent
     {
-        public float dx;
-        public float dy;
+        public Vector2 Velocity;
     }
 }

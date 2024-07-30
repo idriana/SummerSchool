@@ -2,6 +2,7 @@
 using SummerSchoolGUI.Infrastructure;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -56,6 +57,21 @@ namespace SummerSchoolGUI.ViewModels.Primitives
         {
             FloatViewModel FloatVM = Y.DataContext as FloatViewModel;
             FloatVM.SetValue(value);
+        }
+
+        public Vector2 GetValue()
+        {
+            FloatViewModel XVM = X.DataContext as FloatViewModel;
+            FloatViewModel YVM = Y.DataContext as FloatViewModel;
+            return new Vector2(XVM.GetValue(), YVM.GetValue());
+        }
+
+        public void SetValue(Vector2 value)
+        {
+            FloatViewModel XVM = X.DataContext as FloatViewModel;
+            FloatViewModel YVM = Y.DataContext as FloatViewModel;
+            XVM.SetValue(value.X);
+            YVM.SetValue(value.Y);
         }
     }
 }

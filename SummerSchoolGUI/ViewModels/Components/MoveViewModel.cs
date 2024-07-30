@@ -35,26 +35,26 @@ namespace SummerSchoolGUI.ViewModels.Components
             {
                 if (args.PropertyName == "X")
                 {
-                    MoveComponent.dx = VelocityVM.GetX();
+                    MoveComponent.Velocity.X = VelocityVM.GetX();
                     UpdateTemp();
                 }
                 if (args.PropertyName == "Y")
                 {
-                    MoveComponent.dy = VelocityVM.GetY();
+                    MoveComponent.Velocity.Y = VelocityVM.GetY();
                     UpdateTemp();
                 }
             };
 
-            VelocityVM.SetX(component.dx);
-            VelocityVM.SetY(component.dy);
+            VelocityVM.SetX(component.Velocity.X);
+            VelocityVM.SetY(component.Velocity.Y);
         }
 
         protected override void UpdateValues(Domain.ValueObjects.IComponent component)
         {
             if (component is MoveComponent moveComponent) {
                 Vector2ViewModel? VelocityVM = Vector.DataContext as Vector2ViewModel;
-                VelocityVM?.SetX(moveComponent.dx);
-                VelocityVM?.SetY(moveComponent.dy);
+                VelocityVM?.SetX(moveComponent.Velocity.X);
+                VelocityVM?.SetY(moveComponent.Velocity.Y);
             }
             else
             {

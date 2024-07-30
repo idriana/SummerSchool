@@ -19,7 +19,7 @@ namespace MyEngine.Ecs.Systems
             foreach (var entity in _filter)
             {
                 ref MoveData md = ref _movementPool.Get(entity);
-                Console.WriteLine($"Entity {entity} dx: {md.dx}, dy: {md.dy}");
+                Console.WriteLine($"Entity {entity} Velocity: {md.Velocity}");
             }
         }
     }

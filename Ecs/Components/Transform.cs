@@ -1,14 +1,12 @@
 ﻿using System;
+using System.Numerics;
 
 namespace MyEngine.Ecs.Components
 {
     public struct Transform : IECSComponent
     {
-        public float posX;
-        public float posY;
-        public float rotX;
-        public float rotY;
-        public float scaleX;
-        public float scaleY;
+        public Vector2 Position;
+        public Vector2 Rotation;
+        public Vector2 Scale;
     }
 }

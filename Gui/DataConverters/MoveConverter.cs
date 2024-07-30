@@ -16,8 +16,7 @@ namespace MyEngine.Gui.DataConverters
             {
                 return new MoveData
                 {
-                    dx = guiTransform.dx,
-                    dy = guiTransform.dy,
+                    Velocity = guiTransform.Velocity
                 };
             }
             else
@@ -32,8 +31,7 @@ namespace MyEngine.Gui.DataConverters
             {
                 return new MoveComponent
                 {
-                    dx = coreTransform.dx,
-                    dy = coreTransform.dy,
+                    Velocity = coreTransform.Velocity
                 };
             }
             else
