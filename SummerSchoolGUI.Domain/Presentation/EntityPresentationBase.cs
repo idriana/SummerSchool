@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,18 +9,15 @@ namespace Presentation
 {
     public abstract class EntityPresentationBase 
     {
-        float posX;
-        float posY;
-        float rotX;
-        float rotY;
-        float scaleX;
-        float scaleY;
+        Vector2 Position;
+        Vector2 Rotation;
+        Vector2 Scale;
 
-        public float PosX { get { return posX; } set { posX = value; } }
-        public float PosY { get { return posY; } set { posY = value; } }
-        public float RotX { get { return rotX; } set { rotX = value; } }
-        public float RotY { get { return rotY; } set { rotY = value; } }
-        public float ScaleX { get { return scaleX; } set { scaleX = value; } }
-        public float ScaleY { get { return scaleY; } set { scaleY = value; } }
+        public float PosX { get { return Position.X; } set { Position.X = value; } }
+        public float PosY { get { return Position.Y; } set { Position.Y = value; } }
+        public float RotX { get { return Rotation.X; } set { Rotation.X = value; } }
+        public float RotY { get { return Rotation.Y; } set { Rotation.Y = value; } }
+        public float ScaleX { get { return Scale.X; } set { Scale.X = value; } }
+        public float ScaleY { get { return Scale.Y; } set { Scale.Y = value; } }
     }
 }

@@ -55,12 +55,7 @@ namespace SummerSchoolGUI.ViewModels
                 TransformComponent transform = entity.Transform;
                 EntityPresentations.Add(
                     new EntityPresentation(
-                    transform.Position.X,
-                    transform.Position.Y,
-                    transform.Rotation.X,
-                    transform.Rotation.Y,
-                    transform.Scale.X,
-                    transform.Scale.Y)
+                    transform)
                 );
             }
         }
