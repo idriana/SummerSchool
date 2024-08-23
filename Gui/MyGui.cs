@@ -96,7 +96,9 @@ namespace MyEngine.Gui
                     {
                         throw new ArgumentNullException("Expected to get IECSComponent from component pool, got null");
                     }
-                    components.Add(converter.ConvertToGui(component));
+                    IComponent? guiComponent = converter.ConvertToGui(component);
+                    if (guiComponent != null)
+                        components.Add(guiComponent);
                 }
             }
             return components;

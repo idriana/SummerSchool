@@ -23,4 +23,8 @@
     <ProjectReference Include="..\SummerSchoolGUI.Domain\SummerSchoolGUI.Domain.csproj" />
     <ProjectReference Include="..\SummerSchoolGUI.Infrastructure\SummerSchoolGUI.Infrastructure.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Converters\" />
+  </ItemGroup>
 </Project>

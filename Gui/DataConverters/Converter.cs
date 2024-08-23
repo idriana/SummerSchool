@@ -28,12 +28,13 @@ namespace MyEngine.Gui.DataConverters
             return converter.Convert(guiComponent);
         }
 
-        public IComponent ConvertToGui(IECSComponent coreComponent)
+        public IComponent? ConvertToGui(IECSComponent coreComponent)
         {
-            IConverter converter = coreGuiConverters[coreComponent.GetType()];
+            IConverter? converter = coreGuiConverters!.GetValueOrDefault(coreComponent.GetType(), null);
             if (converter == null)
             {
-                throw new ArgumentException($"Couldn't find appropriate converter for gui component of type {coreComponent.GetType()}");
+                return null;
+                //throw new ArgumentException($"Couldn't find appropriate converter for gui component of type {coreComponent.GetType()}");
             }
             return converter.Convert(coreComponent);
         }
