@@ -35,9 +35,9 @@ public class TransformViewModel : ComponentViewModelBase
     public TransformViewModel() : base()
     {
         _component = new TransformComponent();
-        Position = new Vector2View() { DataContext = new Vector2ViewModel(), Name = "Position" };
-        Rotation = new Vector2View() { DataContext = new Vector2ViewModel(), Name = "Rotation" };
-        Scale = new Vector2View() { DataContext = new Vector2ViewModel(), Name = "Scale" };
+        Position = new Vector2View() { DataContext = new Vector2ViewModel("Position")};
+        Rotation = new Vector2View() { DataContext = new Vector2ViewModel("Rotation")};
+        Scale = new Vector2View() { DataContext = new Vector2ViewModel("Scale")};
     }
 
     public TransformViewModel(IServiceProvider serviceProvider, TransformComponent component) : base(serviceProvider, component)
@@ -53,19 +53,19 @@ public class TransformViewModel : ComponentViewModelBase
         PositionVM.PropertyChanged += (sender, args) =>
         {
             TransformComponent.Position = PositionVM.GetValue();
-            UpdateTemp();
+            UpdateInternal();
         };
 
         RotationVM.PropertyChanged += (sender, args) =>
         {
             TransformComponent.Rotation = RotationVM.GetValue();
-            UpdateTemp();
+            UpdateInternal();
         };
 
         ScaleVM.PropertyChanged += (sender, args) =>
         {
             TransformComponent.Scale = ScaleVM.GetValue();
-            UpdateTemp();
+            UpdateInternal();
         };
 
         PositionVM.SetValue(component.Position);

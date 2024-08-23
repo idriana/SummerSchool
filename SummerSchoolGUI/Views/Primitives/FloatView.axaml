@@ -9,18 +9,21 @@
 	<Design.DataContext>
 		<vm:FloatViewModel />
 	</Design.DataContext>
-	<Grid RowDefinitions="*" ColumnDefinitions="auto, *" Margin="5">
+	<DockPanel Margin="5">
 		<!--X position label-->
-		<Label Content="{Binding PropertyName}"
-			   Grid.Row="0"
-			   Grid.Column="0"
+		<Label 
+			   x:Name="FloatLabel"
+			   Content="{Binding PropertyName}"
+			   DockPanel.Dock="Left"
 			   VerticalAlignment="Center"
-			   HorizontalAlignment="Right"
+			   HorizontalAlignment="Left"
 			   Margin="5"/>
 		<!--X position textbox-->
-		<TextBox Text="{Binding Value}"
-				 Grid.Row="0"
-				 Grid.Column="1"
+		<TextBox x:Name="FloatValue"
+				 DockPanel.Dock="Right"
+			     Text="{Binding Value}"
+				 MinWidth="0"
+				 HorizontalAlignment="Stretch"
 				 VerticalAlignment="Center"/>
-	</Grid>
+	</DockPanel>
 </UserControl>

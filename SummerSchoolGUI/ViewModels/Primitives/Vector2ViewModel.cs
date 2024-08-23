@@ -15,14 +15,19 @@ namespace SummerSchoolGUI.ViewModels.Primitives
         public UserControl X { get; private set; }
         public UserControl Y { get; private set; }
 
-        public Vector2ViewModel() : base() 
+        public Vector2ViewModel() : base()
         {
             PropertyName = "Vector2";
-            X = new FloatView() { DataContext = new FloatViewModel()};
-            Y = new FloatView() { DataContext = new FloatViewModel()};
+            X = new FloatView() { DataContext = new FloatViewModel("X") };
+            Y = new FloatView() { DataContext = new FloatViewModel("Y") };
         }
 
-        public Vector2ViewModel(string propertyName, IServiceProvider serviceProvider) : base(serviceProvider) 
+        public Vector2ViewModel(string Name) : this()
+        {
+            PropertyName = Name;
+        }
+
+        public Vector2ViewModel(string propertyName, IServiceProvider serviceProvider) : base(serviceProvider)
         {
             PropertyName = propertyName;
             FloatViewModel Xvm = new FloatViewModel("X", serviceProvider);

@@ -49,15 +49,7 @@ namespace SummerSchoolGUI.ViewModels.Components
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected void UpdateInternal(string propertyName)
-        {
-            MemoryAccessor memory = serviceProvider.GetService<MemoryAccessor>();
-            memory.UpdateSelectedEntityComponent(_component);
-            SendUpdates();
-            OnPropertyChanged(propertyName);
-        }
-
-        protected void UpdateTemp()
+        protected void UpdateInternal()
         {
             MemoryAccessor memory = serviceProvider.GetService<MemoryAccessor>();
             memory.UpdateSelectedEntityComponent(_component);

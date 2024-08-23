@@ -45,6 +45,11 @@ namespace SummerSchoolGUI.ViewModels.Primitives
             PropertyName = "Float";
         }
 
+        public FloatViewModel(string Name) : this()
+        {
+            PropertyName = Name;
+        }
+
         public FloatViewModel(string propertyName, IServiceProvider serviceProvider) : base(serviceProvider)
         {
             PropertyName = propertyName;

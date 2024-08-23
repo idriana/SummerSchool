@@ -9,8 +9,18 @@
 	<Design.DataContext>
 		<vm:Vector2ViewModel />
 	</Design.DataContext>
-	<Grid RowDefinitions="*" ColumnDefinitions="auto, *, *" Margin="5">
-		<Label Content="{Binding PropertyName}"
+
+	<UserControl.Styles>
+		<Style Selector="Label#FloatLabel">
+			<Setter Property="Width" Value="20"/>
+			<Setter Property="HorizontalAlignment" Value="Right"/>
+			<Setter Property="Margin" Value="3"/>
+		</Style>
+	</UserControl.Styles>
+
+	<Grid RowDefinitions="*" ColumnDefinitions="*, *, *" Margin="5">
+		<Label x:Name="Vector2Label"
+			   Content="{Binding PropertyName}"
 			   Grid.Row="0" Grid.Column="0"
 			   VerticalAlignment="Center"/>
 		<ContentControl Content="{Binding X}" Grid.Column="1"/>

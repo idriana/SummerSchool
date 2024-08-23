@@ -23,7 +23,7 @@ namespace SummerSchoolGUI.ViewModels.Components
         public MoveViewModel() : base()
         {
             _component = new MoveComponent();
-            Vector = new Vector2View() { DataContext = new Vector2ViewModel()};
+            Vector = new Vector2View() { DataContext = new Vector2ViewModel("Velocity")};
         }
 
         public MoveViewModel(Infrastructure.IServiceProvider serviceProvider, MoveComponent component) : base(serviceProvider, component) 
@@ -36,12 +36,12 @@ namespace SummerSchoolGUI.ViewModels.Components
                 if (args.PropertyName == "X")
                 {
                     MoveComponent.Velocity.X = VelocityVM.GetX();
-                    UpdateTemp();
+                    UpdateInternal();
                 }
                 if (args.PropertyName == "Y")
                 {
                     MoveComponent.Velocity.Y = VelocityVM.GetY();
-                    UpdateTemp();
+                    UpdateInternal();
                 }
             };
 
