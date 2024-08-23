@@ -1,6 +1,7 @@
 ﻿using System;
 using Leopotam.EcsLite;
 using MyEngine.Ecs.Components;
+using MyEngine.Ecs.Components.Primitives;
 
 namespace MyEngine.Ecs.Systems
 {
@@ -20,6 +21,11 @@ namespace MyEngine.Ecs.Systems
             ref MoveData moveData = ref world.GetPool<MoveData>().Get(e1);
             moveData.Velocity.Y = 1;
 
+            world.GetPool<PrimitiveModel>().Add(e1);
+            ref PrimitiveModel primitive = ref world.GetPool<PrimitiveModel>().Get(e1);
+            primitive.Fill = true;
+            primitive.Shape = new Circle() { Center = new System.Numerics.Vector2(0, 0), Radius = 10 };
+
             int e = CreateEntity(systems);
             world.GetPool<WorldBox>().Add(e);
             ref WorldBox wb = ref world.GetPool<WorldBox>().Get(e);
@@ -27,6 +33,11 @@ namespace MyEngine.Ecs.Systems
             wb.right = 400;
             wb.top = 0;
             wb.bottom = 400;
+
+            world.GetPool<PrimitiveModel>().Add(e);
+            ref PrimitiveModel primitive1 = ref world.GetPool<PrimitiveModel>().Get(e1);
+            primitive.Fill = false;
+            primitive.Shape = new Rectangle() { TopLeft = wb.TopLeft, BottomRight = wb.BottomRight };
         }
 
         private int CreateEntity(IEcsSystems systems)
